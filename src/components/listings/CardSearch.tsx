@@ -17,7 +17,7 @@ const CardSearch: React.FC<CardSearchProps> = ({ prompt, onPromptChange }) => {
       type="search"
       value={prompt}
       onChange={handleChange}
-      placeholder="Ask about a card (e.g., lounge access)"
+      placeholder="Ask about a card (e.g., Show me cards that offer lounge access or travel insurance)"
       className="w-full p-2 border rounded"
     />
   );

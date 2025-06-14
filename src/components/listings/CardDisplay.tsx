@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from '../ui/card';
 import { type Card as CardType } from '../../types/card';
+import HoverCardUI from '../HoverCardUI';
+import { Sparkles } from 'lucide-react';
 
 interface CardDisplayProps {
   card: CardType;
@@ -16,21 +18,27 @@ interface CardDisplayProps {
 const CardDisplay: React.FC<CardDisplayProps> = ({ card }) => {
   return (
     <Card className="w-full max-w-full">
-      <CardHeader className="items-start text-left flex justify-between">
-        <div className="flex flex-col gap-1.5">
-          <div className="flex gap-1 items-center">
-            <CardDescription className="text-sm">Bank:</CardDescription>
-            <CardTitle className=' text-sm'>{card.bank}</CardTitle>
+      <CardHeader className="">
+        <div className='items-start text-left flex justify-between'>
+          <div className="flex flex-col gap-1.5">
+            <div className="flex gap-1 items-center">
+              <CardDescription className="text-sm">Bank:</CardDescription>
+              <CardTitle className=' text-sm'>{card.bank}</CardTitle>
+            </div>
+            <div className="flex gap-1 items-center">
+              <CardDescription className="text-sm">Card:</CardDescription>
+              <CardTitle className=' text-sm'>{card.cardName}</CardTitle>
+            </div>
+            <div className="flex gap-1 items-center">
+              <CardDescription className="text-sm">Card Type:</CardDescription>
+              <CardTitle className=' text-sm'>{card.cardType}</CardTitle>
+            </div>
+            <div className="flex gap-1.5 items-center">
+              <CardDescription>Joining Fee:</CardDescription>
+              <CardTitle>{card.fees.joining}</CardTitle>
+            </div>
           </div>
-          <div className="flex gap-1 items-center">
-            <CardDescription className="text-sm">Card:</CardDescription>
-            <CardTitle className=' text-sm'>{card.cardName}</CardTitle>
-          </div>
-          <div className="flex gap-1 items-center">
-            <CardDescription className="text-sm">Card Type:</CardDescription>
-            <CardTitle className=' text-sm'>{card.cardType}</CardTitle>
-          </div>
-        </div>
+
         <div className="flex flex-col gap-1.5 items-end">
           <div className="flex gap-1 items-center">
             <CardDescription className="text-sm">Annual Fee:</CardDescription>
@@ -44,22 +52,23 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card }) => {
             <CardDescription className="text-sm">Foreign Transaction Fee:</CardDescription>
             <CardTitle className=' text-sm'>{card.foreignTransactionFee}</CardTitle>
           </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="flex my-4 gap-1.5">
-          <div className="flex gap-1.5 items-center">
-            <CardDescription>Joining Fee:</CardDescription>
-            <CardTitle>{card.fees.joining}</CardTitle>
-          </div>
+
           <div className="flex gap-1.5 items-center">
             <CardDescription>Renewal Fee:</CardDescription>
             <CardTitle>{card.fees.renewal}</CardTitle>
           </div>
-          <div className="flex gap-1.5 items-center">
-            <CardDescription>Rewards Rate:</CardDescription>
-            <CardTitle>{card.rewardsRate}</CardTitle>
-          </div>
+        </div>
+
+        </div>
+        <div className="flex gap-1.5 items-center text-center justify-center mt-3.5">
+            <CardDescription>Reward:</CardDescription>
+            <CardTitle className=' text-xs'>{card.rewardsRate}</CardTitle>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="flex my-4 gap-1.5">
+
+
         </div>
         <div className="flex items-start flex-col">
           <CardTitle>Features:</CardTitle>
@@ -80,6 +89,9 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card }) => {
               </li>
             ))}
           </ul>
+        </div>
+        <div className='flex items-start cursor-pointer'>
+          <HoverCardUI title='AI generated summary' summary={card.summary}/>
         </div>
       </CardContent>
     </Card>
