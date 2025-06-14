@@ -20,29 +20,29 @@ const CardDisplay: React.FC<CardDisplayProps> = ({ card }) => {
         <div className="flex flex-col gap-1.5">
           <div className="flex gap-1 items-center">
             <CardDescription className="text-sm">Bank:</CardDescription>
-            <CardTitle>{card.bank}</CardTitle>
+            <CardTitle className=' text-sm'>{card.bank}</CardTitle>
           </div>
           <div className="flex gap-1 items-center">
             <CardDescription className="text-sm">Card:</CardDescription>
-            <CardTitle>{card.cardName}</CardTitle>
+            <CardTitle className=' text-sm'>{card.cardName}</CardTitle>
           </div>
           <div className="flex gap-1 items-center">
             <CardDescription className="text-sm">Card Type:</CardDescription>
-            <CardTitle>{card.cardType}</CardTitle>
+            <CardTitle className=' text-sm'>{card.cardType}</CardTitle>
           </div>
         </div>
         <div className="flex flex-col gap-1.5 items-end">
           <div className="flex gap-1 items-center">
             <CardDescription className="text-sm">Annual Fee:</CardDescription>
-            <CardTitle>{card.annualFee}</CardTitle>
+            <CardTitle className=' text-sm'>{card.annualFee}</CardTitle>
           </div>
           <div className="flex gap-1 items-center">
             <CardDescription className="text-sm">Eligibility:</CardDescription>
-            <CardTitle>{card.eligibility}</CardTitle>
+            <CardTitle className=' text-sm'>{card.eligibility}</CardTitle>
           </div>
           <div className="flex gap-1 items-center">
             <CardDescription className="text-sm">Foreign Transaction Fee:</CardDescription>
-            <CardTitle>{card.foreignTransactionFee}</CardTitle>
+            <CardTitle className=' text-sm'>{card.foreignTransactionFee}</CardTitle>
           </div>
         </div>
       </CardHeader>

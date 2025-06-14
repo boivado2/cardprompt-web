@@ -9,7 +9,7 @@ import { Skeleton } from '../ui/skeleton';
 
 const CardList: React.FC = () => {
   const [prompt, setPrompt] = useState<string>('');
-  const [searchQuery, setSearchQuery] = useState<string>(''); // Confirmed prompt for search
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const { data: allCards, error: allError, isLoading: loadingAll }: UseQueryResult<Card[], Error> =
     useGetAllCards(searchQuery === '');
@@ -37,12 +37,12 @@ const CardList: React.FC = () => {
   const error = searchQuery ? promptError : allError;
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex justify-between gap-2.5 mb-6">
+    <div className="container mx-auto p-4 w-full">
+      <div className="flex justify-between gap-2.5 mb-6 w-full">
         <CardSearch prompt={prompt} onPromptChange={setPrompt} />
         <Button onClick={handleSearch}>Search</Button>
         {searchQuery && (
-          <Button onClick={handleResetSearch} variant="secondary">
+          <Button onClick={handleResetSearch} variant="outline">
             Reset Search
           </Button>
         )}
