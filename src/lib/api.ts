@@ -1,6 +1,7 @@
 import axios from 'axios'
-const baseUrl = import.meta.env.VITE_API_URL
+const baseUrl = import.meta.env.VITE_API_BASE_URL
 
+console.log()
 export const fetchAllCards = async () => {
   try {
     
@@ -13,8 +14,8 @@ export const fetchAllCards = async () => {
 }
 export const fetchCardsByPrompt = async (userPrompt: string) => {
   try {
-    
-    const response = await axios.get(`${baseUrl}/cards/?prompt=${encodeURIComponent(userPrompt)}`)
+      console.log(userPrompt)
+    const response = await axios.get(`${baseUrl}/cards/query/?prompt=${encodeURIComponent(userPrompt)}`)
     return response.data
   } catch (error) {
     console.log(error)

@@ -5,40 +5,43 @@ import CardDisplay from './CardDisplay';
 import { type Card } from '../../types/card';
 import { type UseQueryResult } from '@tanstack/react-query';
 import { useGetAllCards, useGetCardsByPrompt } from '@/lib/query';
+import { Skeleton } from '../ui/skeleton';
 
 const CardList: React.FC = () => {
   const [prompt, setPrompt] = useState<string>('');
-  const [usePromptSearch, setUsePromptSearch] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>(''); // Confirmed prompt for search
 
   const { data: allCards, error: allError, isLoading: loadingAll }: UseQueryResult<Card[], Error> =
-    useGetAllCards(!usePromptSearch);
+    useGetAllCards(searchQuery === '');
   const { data: promptCards, error: promptError, isLoading: loadingPrompt }: UseQueryResult<
     Card[],
     Error
-  > = useGetCardsByPrompt({prompt, enabled: usePromptSearch && prompt.length > 0});
+  > = useGetCardsByPrompt({prompt: searchQuery, enabled: searchQuery.trim().length > 0});
 
   const handleSearch = () => {
-    if (prompt === '') {
+    if (prompt.trim() === '') {
+      setSearchQuery("")
       return;
     }
-    setUsePromptSearch(true);
+    setSearchQuery(prompt);
   };
 
   const handleResetSearch = () => {
-    setUsePromptSearch(false);
+    setSearchQuery("");
     setPrompt('');
   };
 
-  const cardsToDisplay = usePromptSearch ? promptCards : allCards;
-  const isLoading = usePromptSearch ? loadingPrompt : loadingAll;
-  const error = usePromptSearch ? promptError : allError;
+  const cardsToDisplay = searchQuery ? promptCards : allCards;
+  console.log(cardsToDisplay)
+  const isLoading = searchQuery ? loadingPrompt : loadingAll;
+  const error = searchQuery ? promptError : allError;
 
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between gap-2.5 mb-6">
         <CardSearch prompt={prompt} onPromptChange={setPrompt} />
         <Button onClick={handleSearch}>Search</Button>
-        {usePromptSearch && (
+        {searchQuery && (
           <Button onClick={handleResetSearch} variant="secondary">
             Reset Search
           </Button>
@@ -47,7 +50,13 @@ const CardList: React.FC = () => {
       {error ? (
         <div className="text-red-500">Error: {error.message}</div>
       ) : isLoading ? (
-        <div className="text-center">Loading...</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 w-full">
+            <Skeleton  className="w-full max-w-full h-[225px] rounded-xl"/>
+            <Skeleton  className="w-full max-w-full h-[225px] rounded-xl"/>
+            <Skeleton  className="w-full max-w-full h-[225px] rounded-xl"/>
+            <Skeleton  className="w-full max-w-full h-[225px] rounded-xl"/>
+        </div>
+        
       ) : cardsToDisplay?.length ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {cardsToDisplay.map((card) => (
